@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: rq-karteless-poc
+  namespace: dajp1-dxpf-cont-ocppro-karteless-poc
+spec:
+  hard:
+    pods: '20'
+    requests.cpu: '8'
+    requests.memory: 16Gi
+    limits.cpu: '8'
+    limits.memory: 16Gi
+    requests.storage: 20Gi
+

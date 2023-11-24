@@ -1,0 +1,32 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: docker-build
+  name: docker-build
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+#      kind: ImageStreamTag 
+#      name: hello-world-dotnet-docker:latest
+      kind: DockerImage
+      name: image-registry.openshift-image-registry.svc:5000/dajp1-dxpf-cont-ocppro-karteless-poc/karteless:latest
+  postCommit: {}
+  resources:
+    requests:
+      cpu: "1"
+      memory: 1G
+    limits:
+      cpu: "2"
+      memory: 2G
+  runPolicy: Serial
+  source:
+    binary: {}
+    type: Binary
+  strategy:
+    dockerStrategy: 
+      dockerfilePath: ./ECS.dockerfile
+    type: Docker
+  successfulBuildsHistoryLimit: 5

@@ -1,0 +1,40 @@
+apiVersion: v1
+items:
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      haproxy.router.openshift.io/ip_whitelist: 3.141.176.242 126.253.124.158
+    labels:
+      app: karteless
+    name: rt-karteless-poc
+  spec:
+    host: karteless-poc.apps.cluster-grn5l.grn5l.sandbox35.opentlc.com
+    port:
+      targetPort: 8000-tcp
+    to:
+      kind: Service
+      name: svc-karteless-poc
+      weight: 100
+    wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: karteless
+    name: svc-karteless-poc
+  spec:
+    ports:
+    - name: 8000-tcp
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+    selector:
+      app: karteless
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
+

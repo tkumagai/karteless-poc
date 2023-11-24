@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    apps: karteless
+  name: karteless
+spec:
+#  replicas: 1
+  replicas: 2
+  selector:
+    matchLabels:
+      app: karteless
+  template:
+    metadata:
+      labels:
+        app: karteless
+    spec:
+      containers:
+      - name: karteless
+        image: image-registry.openshift-image-registry.svc:5000/dajp1-dxpf-cont-ocppro-karteless-poc/karteless
+#        image: karteless:latest
+#        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000
+            protocol: TCP
+        readinessProbe:
+#          httpGet:
+#            path: /healthz/ready
+#            port: 8000
+#            scheme: HTTP
+#          timeoutSeconds: 1
+#          periodSeconds: 10
+#          successThreshold: 1
+#          failureThreshold: 3
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+#          httpGet:
+#            path: /healthz
+#            port: 8000
+#            scheme: HTTP
+#          timeoutSeconds: 1
+#          periodSeconds: 10
+#          successThreshold: 1
+#          failureThreshold: 3
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: karteless-data
+          mountPath: "/mnt/data"
+      volumes:
+        - name: karteless-data
+          persistentVolumeClaim:
+            claimName: pvc-karteless
+
