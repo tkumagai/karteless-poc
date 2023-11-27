@@ -43,6 +43,9 @@ RUN mkdir -p /var/cache/nginx/
 RUN chmod -R 777 /var/cache/nginx/
 RUN chmod -R 777 /var/run/
 
+RUN mkdir -p /tmp/nginx
+RUN chmod -R 777 /tmp/nginx
+
 ### test webhook
 
 CMD ["/startup.sh"]
