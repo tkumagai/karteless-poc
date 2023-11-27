@@ -44,7 +44,6 @@ RUN chmod -R 777 /var/cache/nginx/
 RUN chmod -R 777 /var/run/
 
 ### test git push
-### test git push again
 
 CMD ["/startup.sh"]
 ###CMD ["sleep", "300"]
