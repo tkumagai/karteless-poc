@@ -4,6 +4,9 @@ mypath=$(dirname "${0}")
 logname=$(date +"sqlplus_helloworld_sql_%Y%m%d_%H%M%S_$$.log")
 logfile="/karte-efs/dealer01/${logname}"
 
+# copy file from configmap
+cp /tmp/nginx/conf/default.conf /etc/nginx/conf.d
+
 df -h >> "${logfile}"
 ###sqlplus /nolog << EOF >> "${logfile}" 2>&1 && ret=0 || ret=$?
 ###WHENEVER SQLERROR EXIT FAILURE ROLLBACK
