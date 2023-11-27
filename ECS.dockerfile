@@ -26,7 +26,10 @@ RUN rm -fr ./instantclient_19_21
 # nginx setup
 ###ADD ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 ADD ./nginx/nginx.conf /etc/nginx/
-ADD ./nginx/default.conf /etc/nginx/conf.d/
+change configmap
+### ADD ./nginx/default.conf /etc/nginx/conf.d/
+RUN chmod -R 777 /etc/nginx/conf.d
+
 ###EXPOSE 80
 EXPOSE 8000
 
